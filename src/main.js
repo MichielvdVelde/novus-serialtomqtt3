@@ -113,9 +113,17 @@ Promise.all([ component.start(), serial.open() ])
 	.then(() => {
 		console.log('Component and Serial open');
 
+    serial.on('error', (err) => {
+      console.error('Serial error:', err.message);
+    });
+
     serial.on('close', () => {
       console.log('ERR: Serial connection closed');
       process.exit(-1);
+    });
+
+    component.on('error', (err) => {
+      console.error('Component error:', err.message);
     });
 
     component.on('close', () => {

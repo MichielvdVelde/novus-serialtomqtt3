@@ -103,7 +103,7 @@ var onStart = function onStart() {
       component.publish(setting.topic, JSON.stringify(setting.value), { retain: true }).then(function () {
         console.log('Set %s', setting.topic);
       }).catch(function (err) {
-        console.error('Error settings %s: %a', setting.topic, err.message);
+        console.error('Error settings %s: %s', setting.topic, err.message);
       });
     };
 
