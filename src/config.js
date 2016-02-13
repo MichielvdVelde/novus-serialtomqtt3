@@ -106,7 +106,7 @@ const onStart = function() {
         console.log('Set %s', setting.topic);
       })
       .catch((err) => {
-        console.error('Error settings %s: %a', setting.topic, err.message);
+        console.error('Error settings %s: %s', setting.topic, err.message);
       });
   }
 
