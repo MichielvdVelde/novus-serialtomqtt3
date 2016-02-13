@@ -105,6 +105,16 @@ serial.on('value', function (key, value) {
 
 Promise.all([component.start(), serial.open()]).then(function () {
 	console.log('Component and Serial open');
+
+	serial.on('close', function () {
+		console.log('ERR: Serial connection closed');
+		process.exit(-1);
+	});
+
+	component.on('close', function () {
+		console.error('ERR: Component connection closed');
+		process.exit(-1);
+	});
 }).catch(function (err) {
 	fatalError('start', err);
 });
