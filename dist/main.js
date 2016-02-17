@@ -22,10 +22,10 @@ var fatalError = function fatalError(type, err) {
 // --------
 
 var component = new _novusComponent.Component('serialtomqtt3', {
-	url: 'mqtt://192.168.2.3'
+	url: process.env.MQTT_BROKER_URL
 });
 
-var serial = new _SerialConnection.SerialConnection('COM3');
+var serial = new _SerialConnection.SerialConnection(process.env.ARDUINO_COM);
 
 component.route([{
 	route: 'sys/settings/{$componentId}/#key',

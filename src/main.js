@@ -17,10 +17,10 @@ const fatalError = function(type, err) {
 // --------
 
 const component = new Component('serialtomqtt3', {
-	url: 'mqtt://192.168.2.3'
+	url: process.env.MQTT_BROKER_URL
 });
 
-const serial = new SerialConnection('COM3');
+const serial = new SerialConnection(process.env.ARDUINO_COM);
 
 component.route([
 	{
