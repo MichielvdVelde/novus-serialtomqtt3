@@ -11,7 +11,7 @@
   "main": "dist/main.js",
   "homepage": "https://github.com/MichielvdVelde/novus-component",
   "dependencies": {
-    "novus-component": "^2.0.1",
+    "novus-component": "^2.1.1",
     "serialport": "^2.0.6"
   },
   "engines": {
