@@ -35,7 +35,7 @@ export function register(component, options) {
     		.catch((err) => {
     			console.error('unable to publish sensor update:', err.message);
     		});
-
     });
+    return resolve();
   });
 }

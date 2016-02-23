@@ -39,5 +39,6 @@ function register(component, options) {
                 console.error('unable to publish sensor update:', err.message);
             });
         });
+        return resolve();
     });
 }
