@@ -72,7 +72,7 @@ component.route([{
 			return component.publish(statusTopic, statusInfo, { retain: true });
 		};
 
-		serial.writeCommand(command).then(publishStatusUpdate).then(function () {
+		component.plugins.serial.writeCommand(command).then(publishStatusUpdate).then(function () {
 			console.log('switch %s set to %s', switchInfo.name, payload.status);
 		}).catch(function (err) {
 			console.error('write error', err.message);
@@ -80,37 +80,14 @@ component.route([{
 	}
 }]);
 
-serial.on('value', function (key, value) {
-
-	var sensors = component.get('sensors', {});
-	var sensor = sensors[key] || null;
-
-	if (sensor === null) {
-		return console.log('unknown sensor', key, value);
-	}
-
-	var topic = (0, _util.format)('dev/{$componentId}/%s/%s', sensor.type, sensor.name);
-	var payload = JSON.stringify({
-		source: component._componentId,
-		value: value,
-		date: new Date()
-	});
-
-	component.publish(topic, payload, { retain: sensor.retain }).then(function () {
-		console.log('%s %s set to %s', sensor.type, sensor.name, value);
-	}).catch(function (err) {
-		console.error('unable to publish sensor update:', err.message);
-	});
-});
-
-Promise.all([component.start(), serial.open()]).then(function () {
+Promise.all([component.start(), component.plugins.serial.open()]).then(function () {
 	console.log('Component and Serial open');
 
-	serial.on('error', function (err) {
+	component.plugins.serial.on('error', function (err) {
 		console.error('Serial error:', err.message);
 	});
 
-	serial.on('close', function () {
+	component.plugins.serial.on('close', function () {
 		console.log('ERR: Serial connection closed');
 		process.exit(-1);
 	});
