@@ -10,7 +10,7 @@ import { SerialConnection } from './SerialConnection';
 export function register(component, options) {
   return new Promise(function(resolve, reject) {
 
-    component.plugins.serial = new SerialConnection(process.env.ARDUINO_COM);
+    component.plugins.serial = new SerialConnection(options.port);
 
     component.plugins.serial.on('value', (key, value) => {
 
@@ -37,8 +37,5 @@ export function register(component, options) {
     		});
 
     });
-
-
-
   });
 }

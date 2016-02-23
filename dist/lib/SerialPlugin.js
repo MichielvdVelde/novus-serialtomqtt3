@@ -15,7 +15,7 @@ var _SerialConnection = require('./SerialConnection');
 function register(component, options) {
     return new Promise(function (resolve, reject) {
 
-        component.plugins.serial = new _SerialConnection.SerialConnection(process.env.ARDUINO_COM);
+        component.plugins.serial = new _SerialConnection.SerialConnection(options.port);
 
         component.plugins.serial.on('value', function (key, value) {
 

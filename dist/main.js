@@ -4,6 +4,10 @@ var _util = require('util');
 
 var _novusComponent = require('novus-component');
 
+var _SerialPlugin = require('./lib/SerialPlugin');
+
+var SerialPlugin = _interopRequireWildcard(_SerialPlugin);
+
 var _SwitchControl = require('./lib/SwitchControl');
 
 var SwitchControl = _interopRequireWildcard(_SwitchControl);
@@ -22,6 +26,16 @@ var fatalError = function fatalError(type, err) {
 var component = new _novusComponent.Component('serialtomqtt3', {
 	url: process.env.MQTT_BROKER_URL
 });
+
+/**
+ * Register the serial plugin
+**/
+component.register([{
+	register: SerialPlugin.register,
+	options: {
+		port: process.env.ARDUINO_COM || null
+	}
+}]);
 
 component.route([{
 	route: 'sys/settings/{$componentId}/#key',

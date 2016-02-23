@@ -3,6 +3,7 @@
 import { format } from 'util';
 
 import { Component } from 'novus-component';
+import * as SerialPlugin from './lib/SerialPlugin';
 import * as SwitchControl from './lib/SwitchControl';
 
 // --------
@@ -17,6 +18,18 @@ const fatalError = function(type, err) {
 const component = new Component('serialtomqtt3', {
 	url: process.env.MQTT_BROKER_URL
 });
+
+/**
+ * Register the serial plugin
+**/
+component.register([
+  {
+    register: SerialPlugin.register,
+    options: {
+      port: process.env.ARDUINO_COM || null
+    }
+  }
+]);
 
 component.route([
 	{
