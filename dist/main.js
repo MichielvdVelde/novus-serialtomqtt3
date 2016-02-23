@@ -4,8 +4,6 @@ var _util = require('util');
 
 var _novusComponent = require('novus-component');
 
-var _SerialConnection = require('./lib/SerialConnection');
-
 var _SwitchControl = require('./lib/SwitchControl');
 
 var SwitchControl = _interopRequireWildcard(_SwitchControl);
@@ -24,8 +22,6 @@ var fatalError = function fatalError(type, err) {
 var component = new _novusComponent.Component('serialtomqtt3', {
 	url: process.env.MQTT_BROKER_URL
 });
-
-var serial = new _SerialConnection.SerialConnection(process.env.ARDUINO_COM);
 
 component.route([{
 	route: 'sys/settings/{$componentId}/#key',
